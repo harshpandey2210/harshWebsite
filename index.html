@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #6C63FF;
+            --secondary: #FF6584;
+            --dark: #2A2A72;
+            --light: #f8f9fa;
+            --success: #4CAF50;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+
+        header {
+            background: linear-gradient(to right, var(--dark), var(--primary));
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, transparent 30%, rgba(255, 255, 255, 0.1) 100%);
+            transform: rotate(30deg);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .team-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .member-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .card-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-header .role {
+            font-style: italic;
+            font-size: 1rem;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            margin: -70px auto 1rem;
+            display: block;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            background-color: #f1f1f1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .credentials {
+            margin-bottom: 1.5rem;
+        }
+
+        .credentials h3 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 0.5rem;
+        }
+
+        .credentials ul {
+            list-style-type: none;
+        }
+
+        .credentials li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .credentials li i {
+            color: var(--primary);
+            margin-right: 0.5rem;
+            margin-top: 0.2rem;
+        }
+
+        .edit-section {
+            background-color: #f9f9f9;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .edit-section h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .edit-section h3 i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            resize: vertical;
+            font-family: inherit;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: var(--dark);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .success-message {
+            background-color: var(--success);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            text-align: center;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .team-section {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Future Business Minds</h1>
+        <p class="tagline">Meet our talented team of students passionate about technology and design</p>
+    </header>
+
+    <div class="container">
+        <div class="team-section">
+            <!-- Harsh's Profile -->
+            <div class="member-card">
+                <div class="card-header">
+                    <h2>Harsh Pandey</h2>
+                    <p class="role">Web Developer</p>
+                </div>
+                <div class="card-content">
+                    <img src="harsh.jpg" alt="Harsh" class="profile-img">
+                    <div class="credentials">
+                        <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                        <ul>
+                            <li><i class="fas fa-check"></i> B.Tech in Computer Science</li>
+                            <li><i class="fas fa-check"></i> XYZ University</li>
+                            <li><i class="fas fa-check"></i> GPA: 3.8/4.0</li>
+                        </ul>
+                        
+                        <h3><i class="fas fa-code"></i> Skills</h3>
+                        <ul>
+                            <li><i class="fas fa-check"></i> HTML, CSS, JavaScript</li>
+                            <li><i class="fas fa-check"></i> React.js, Node.js</li>
+                            <li><i class="fas fa-check"></i> UI/UX Design</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="edit-section">
+                        <h3><i class="fas fa-edit"></i> About Me</h3>
+                        <textarea id="harsh-description" placeholder="Write something about yourself...">Passionate web developer with a keen interest in creating interactive and user-friendly websites. I enjoy turning complex problems into simple, beautiful designs.</textarea>
+                        <button onclick="updateDescription('harsh')">Update</button>
+                        <div class="success-message" id="harsh-success">Description updated successfully!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gaurav's Profile -->
+            <div class="member-card">
+                <div class="card-header">
+                    <h2>Gaurav Singh</h2>
+                    <p class="role">Data Scientist</p>
+                </div>
+                <div class="card-content">
+                    <img src="gaurav.jpg" alt="Gaurav" class="profile-img">
+                    <div class="credentials">
+                        <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                        <ul>
+                            <li><i class="fas fa-check"></i> M.Sc in Data Science</li>
+                            <li><i class="fas fa-check"></i> ABC Institute of Technology</li>
+                            <li><i class="fas fa-check"></i> GPA: 3.9/4.0</li>
+                        </ul>
+                        
+                        <h3><i class="fas fa-code"></i> Skills</h3>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Python, R, SQL</li>
+                            <li><i class="fas fa-check"></i> Machine Learning</li>
+                            <li><i class="fas fa-check"></i> Data Visualization</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="edit-section">
+                        <h3><i class="fas fa-edit"></i> About Me</h3>
+                        <textarea id="gaurav-description" placeholder="Write something about yourself...">Data science enthusiast with strong analytical skills and passion for deriving insights from data. Experienced in machine learning algorithms and statistical modeling.</textarea>
+                        <button onclick="updateDescription('gaurav')">Update</button>
+                        <div class="success-message" id="gaurav-success">Description updated successfully!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suruchi's Profile -->
+            <div class="member-card">
+                <div class="card-header">
+                    <h2>Suruchi Bisht</h2>
+                    <p class="role">Graphic Designer</p>
+                </div>
+                <div class="card-content">
+                    <img src="suruchi.jpg" alt="Suruchi" class="profile-img">
+                    <div class="credentials">
+                        <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                        <ul>
+                            <li><i class="fas fa-check"></i> B.Des in Graphic Design</li>
+                            <li><i class="fas fa-check"></i> Design Academy</li>
+                            <li><i class="fas fa-check"></i> GPA: 3.7/4.0</li>
+                        </ul>
+                        
+                        <h3><i class="fas fa-code"></i> Skills</h3>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Adobe Creative Suite</li>
+                            <li><i class="fas fa-check"></i> Brand Identity Design</li>
+                            <li><i class="fas fa-check"></i> Illustration</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="edit-section">
+                        <h3><i class="fas fa-edit"></i> About Me</h3>
+                        <textarea id="suruchi-description" placeholder="Write something about yourself...">Creative graphic designer with a passion for visual storytelling. I specialize in creating compelling brand identities and marketing materials that stand out.</textarea>
+                        <button onclick="updateDescription('suruchi')">Update</button>
+                        <div class="success-message" id="suruchi-success">Description updated successfully!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shakshi's Profile -->
+            <div class="member-card">
+                <div class="card-header">
+                    <h2>Shakshi Bhardwaj</h2>
+                    <p class="role">Mobile App Developer</p>
+                </div>
+                <div class="card-content">
+                    <img src="shakshi.jpg" alt="Shakshi" class="profile-img">
+                    <div class="credentials">
+                        <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                        <ul>
+                            <li><i class="fas fa-check"></i> B.E. in Computer Engineering</li>
+                            <li><i class="fas fa-check"></i> Narayana Institute Of Management</li>
+                            <li><i class="fas fa-check"></i> GPA: 3.8/4.0</li>
+                        </ul>
+                        
+                        <h3><i class="fas fa-code"></i> Skills</h3>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Android & iOS Development</li>
+                            <li><i class="fas fa-check"></i> Flutter, Dart</li>
+                            <li><i class="fas fa-check"></i> Firebase</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="edit-section">
+                        <h3><i class="fas fa-edit"></i> About Me</h3>
+                        <textarea id="shakshi-description" placeholder="Write something about yourself...">Mobile app developer with experience in building cross-platform applications. Passionate about creating apps that solve real-world problems with elegant solutions.</textarea>
+                        <button onclick="updateDescription('shakshi')">Update</button>
+                        <div class="success-message" id="shakshi-success">Description updated successfully!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 Creative Minds Portfolio | Made with ❤️ by Harsh, Gaurav, Suruchi & Shakshi</p>
+    </footer>
+
+    <script>
+        function updateDescription(member) {
+            const textarea = document.getElementById(`${member}-description`);
+            const successMessage = document.getElementById(`${member}-success`);
+            
+            // In a real application, you would save this to a database
+            // For this example, we'll just show a success message
+            
+            successMessage.style.display = 'block';
+            
+            // Hide the success message after 3 seconds
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
